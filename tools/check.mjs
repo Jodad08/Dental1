@@ -180,7 +180,6 @@ function measure() {
   return out;
 }
 
-fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch();
 const report = {};
