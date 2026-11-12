@@ -1,6 +1,6 @@
 // Royal: the familiar, trustworthy clinic site done cleanly. A blue contact
 // bar, bold two-tone headings, and questions filed under topics.
-import { html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, social, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, social, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Royal',
@@ -12,12 +12,12 @@ export default {
   defaults: {
     hero: { title: '*Dental care,*\nclearly explained' },
     about: { title: '*Why patients* choose us' },
-    services: { title: '*Our services:* complete care', text: 'General, cosmetic and restorative dentistry for adults and children.' },
-    doctors: { title: '*Meet our doctors:* the team', text: 'Qualified dentists who take the time to explain.' },
-    reviews: { title: '*Patient reviews:* in their words' },
-    patientInfo: { title: '*Patient info:* your questions', text: 'Choose a topic, or go straight to the common questions.' },
+    services: { title: '*Our* services' },
+    doctors: { title: '*Meet* our doctors' },
+    reviews: { title: '*Patient* reviews' },
+    patientInfo: { title: '*Patient* info' },
     cta: { title: 'Need to be seen today?' },
-    contact: { title: '*Get in touch:* book a visit' },
+    contact: { title: '*Get* in touch' },
   },
   render(ctx) {
     const { c, L } = ctx;
@@ -84,17 +84,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'center')}
-  <div class="files g12" data-pick data-reveal>
-    <div class="files__panes">
-      ${faqs.length ? html`<div class="files__pane is-on" role="tabpanel" data-pick-show="faq" data-pick-hide>${faqs.map((f, i) => html`<details class="q" name="royal-faq"${i === 0 ? ' open' : ''}><summary><span>${f.q}</span></summary><div class="q__a"><p>${rich(f.a)}</p></div></details>`)}</div>` : ''}
-      ${topics.map((t, i) => html`<div class="files__pane${i === 0 && !faqs.length ? ' is-on' : ''}" role="tabpanel" data-pick-show="t${i}" data-pick-hide><h3>${t.title}</h3>${topicBody(t)}</div>`)}
-    </div>
-    <div class="files__tabs" role="tablist" aria-label="${c.patientInfo.title}">
-      ${faqs.length ? html`<button type="button" role="tab" aria-selected="true" class="is-on" data-pick-item="faq">${L.questions}</button>` : ''}
-      ${topics.map((t, i) => html`<button type="button" role="tab" aria-selected="${i === 0 && !faqs.length}" class="${i === 0 && !faqs.length ? 'is-on' : ''}" data-pick-item="t${i}">${t.title}</button>`)}
-    </div>
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta">
@@ -105,15 +95,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

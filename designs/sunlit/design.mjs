@@ -1,6 +1,6 @@
 // Sunlit: one warm photograph filling the first screen and a heavy lowercase
 // headline in chartreuse, on a stone ground.
-import { html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Sunlit',
@@ -12,10 +12,10 @@ export default {
   defaults: {
     hero: { title: 'a better smile\nstarts here' },
     about: { title: 'a little care goes far' },
-    services: { title: 'our services', text: 'Everything a smile needs, from the first check-up on.' },
-    doctors: { title: 'meet our doctors', text: 'Friendly, qualified and never in a rush.' },
+    services: { title: 'our services' },
+    doctors: { title: 'meet our doctors' },
     reviews: { title: 'patient reviews' },
-    patientInfo: { title: 'patient info', text: 'What to bring and what it costs.' },
+    patientInfo: { title: 'patient info' },
     cta: { title: 'it hurts today?' },
     contact: { title: 'get in touch' },
   },
@@ -39,12 +39,6 @@ export default {
     </div>
   </div>
 </header>
-<div class="under wrap">
-  <p class="under__text">${rich(c.hero.text)}</p>
-  ${p.tel ? html`<p class="under__tel"><a href="${p.tel}">${p.phone}</a></p>` : ''}
-  <p class="under__open"><strong>${openStatus(ctx)}</strong></p>
-</div>
-
 <main id="main">
 <section class="sec about wrap g12" id="about">
   <div class="about__copy" data-stagger>
@@ -81,11 +75,7 @@ ${lead ? html`<section class="reviews" id="reviews">
 <section class="more wrap" aria-label="${c.reviews.title}">${quoteList(ctx, rest.slice(0, 4))}</section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    <div class="info__topics" data-reveal>${topicTabs(ctx)}</div>
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta">
@@ -96,15 +86,7 @@ ${lead ? html`<section class="reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

@@ -1,6 +1,6 @@
 // Bento: white panels on a field of blue, heavy blue headlines, doctors in
 // leaf-shaped frames. Each section is its own panel.
-import { html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Bento',
@@ -12,10 +12,10 @@ export default {
   defaults: {
     hero: { title: 'Dental clinic\nfor the family' },
     about: { title: 'Why patients stay' },
-    services: { title: 'Our services', text: 'With us your smile gets healthier and stays that way.' },
-    doctors: { title: 'Meet our doctors', text: 'Professionals who work for your smile and explain what they do.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'Before your first visit.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Book a visit today' },
     contact: { title: 'Get in touch' },
   },
@@ -77,21 +77,11 @@ ${lead ? html`<section class="panel reviews" id="reviews">
 </section>` : ''}
 
 <section class="panel info" id="patient-info">
-  ${secHead(c.patientInfo, 'head')}
-  <div class="info__body">
-    <div class="info__topics" data-reveal>${topicTabs(ctx)}</div>
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="panel contact" id="contact">
-  <div class="contact__left" data-stagger>
-    <h2 data-reveal>${rich(c.contact.title)}</h2>
-    <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-    <div data-reveal>${contactFacts(ctx)}</div>
-  </div>
-  <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

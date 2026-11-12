@@ -1,6 +1,6 @@
 // Sage: a calm, airy practice site. Soft green fields, one grotesk, rounded
 // pictures, a tall portrait beside the headline.
-import { html, rich, pic, headline, navList, book, callLink, menuButton, hoursTable, openStatus, stars, ratingLine, faq, topicBody, contactForm, social, mapEmbed, fit, legal } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, hoursTable, openStatus, stars, ratingLine, faq, topicBody, contactForm, social, mapEmbed, fit, legal } from '../../build/kit.mjs';
 
 export default {
   name: 'Sage',
@@ -12,11 +12,11 @@ export default {
   allow: ['card-rows'],
   defaults: {
     hero: { title: 'Feel good about\n*your smile*' },
-    services: { title: 'Our services, *all in one calm place*', text: 'From a first check-up to a full smile makeover, each treatment is explained in plain words, with the fee, before it starts.' },
+    services: { title: 'Our services' },
     about: { title: 'Careful dentistry with a *human touch*' },
-    doctors: { title: 'Meet our doctors', text: 'You see the same dentist each visit, so nothing has to be explained twice.' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'What to bring, what it costs and how we work with your insurance.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Something hurts today?' },
     contact: { title: 'Get in touch' },
   },
@@ -51,7 +51,6 @@ ${c.stats.length ? html`<section class="stats wrap" aria-label="${p.name} in fig
 <section class="sec services wrap" id="services">
   <div class="services__head" data-stagger>
     <h2 data-reveal>${rich(c.services.title)}</h2>
-    <p data-reveal>${rich(c.services.text)}</p>
   </div>
   <ul class="services__grid" data-stagger>${c.services.items.map(
     (s, i) => html`<li class="tile ${tints[i % 4]}" data-reveal>
@@ -77,7 +76,6 @@ ${c.stats.length ? html`<section class="stats wrap" aria-label="${p.name} in fig
 <section class="sec doctors wrap" id="doctors">
   <div class="split-head g12" data-stagger>
     <h2 data-reveal>${rich(c.doctors.title)}</h2>
-    <p data-reveal>${rich(c.doctors.text)}</p>
   </div>
   <ul class="doctors__row" data-stagger>${c.doctors.items.map(
     (d) => html`<li data-reveal>
@@ -105,17 +103,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  <div class="split-head g12" data-stagger>
-    <h2 data-reveal>${rich(c.patientInfo.title)}</h2>
-    <p data-reveal>${rich(c.patientInfo.text)}</p>
-  </div>
-  <div class="g12 info__body">
-    ${c.patientInfo.topics.length ? html`<div class="info__topics" data-pick data-reveal>
-      <div class="info__tabs" role="tablist" aria-label="${c.patientInfo.title}">${c.patientInfo.topics.map((t, i) => html`<button type="button" role="tab" aria-selected="${i === 0}" data-pick-item="${i}" class="${i === 0 ? 'is-on' : ''}">${t.title}</button>`)}</div>
-      ${c.patientInfo.topics.map((t, i) => html`<div class="info__pane${i === 0 ? ' is-on' : ''}" role="tabpanel" data-pick-show="${i}" data-pick-hide${i === 0 ? '' : ' hidden'}><h3>${t.title}</h3>${topicBody(t)}</div>`)}
-    </div>` : ''}
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta wrap">
@@ -129,20 +117,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__facts" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <address data-reveal>
-        ${p.tel ? html`<a class="contact__big" href="${p.tel}">${p.phone}</a>` : ''}
-        ${p.mailto ? html`<a class="link" href="${p.mailto}">${p.email}</a>` : ''}
-        ${p.addressLine ? html`<a class="link" href="${p.mapUrl}" target="_blank" rel="noopener">${p.addressLines.map((l, i) => html`${i ? html`<br>` : ''}${l}`)}</a>` : ''}
-      </address>
-      <div class="contact__hours" data-reveal><p><strong>${openStatus(ctx)}</strong></p>${hoursTable(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

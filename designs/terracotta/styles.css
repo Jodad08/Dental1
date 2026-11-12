@@ -22,7 +22,7 @@
 }
 html { background: var(--clay); }
 body { background: var(--clay); padding: var(--margin); }
-.sheet { background: var(--bg); border-radius: 22px; overflow: clip; }
+.sheet { background: var(--bg); border-radius: 32px; overflow: clip; }
 
 .hero { position: relative; margin: 0.75rem; min-height: min(86svh, 54rem); display: flex; flex-direction: column; border-radius: var(--media-radius); overflow: clip; background: #17130f; color: #fff; }
 .hero__media { position: absolute; inset: 0; }
@@ -113,3 +113,7 @@ body { background: var(--clay); padding: var(--margin); }
   .trows div { grid-template-columns: 1fr; }
   .about__team li { width: 4.25rem; }
 }
+
+.hero { border-radius: 20px; isolation: isolate; }
+.hero__media, .hero__media > img, .hero__media::after { border-radius: inherit; }
+.hero__media { overflow: clip; }

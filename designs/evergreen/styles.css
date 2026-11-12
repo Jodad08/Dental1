@@ -120,3 +120,8 @@ h1 em, h2 em { font-style: italic; color: var(--teal); }
   .note--1, .note--3 { left: 0; }
   .note--2 { right: 0; }
 }
+
+.disc { aspect-ratio: 1; border-radius: 50%; background: var(--teal); }
+.info { --panel-bg: var(--bg); }
+
+.reviews h2 em { color: #ff6a55; }

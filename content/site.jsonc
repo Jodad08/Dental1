@@ -159,7 +159,7 @@
 
   "contact": {
     "title": "",
-    "text": "Call, write, or leave your details and we will ring you back to find a time.",
+    "text": "",
     // Where the form posts (Formspree, Basin, your own endpoint). Empty: the
     // form opens the visitor's email app with their answers filled in.
     "formAction": ""

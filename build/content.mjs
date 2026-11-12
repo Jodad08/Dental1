@@ -68,6 +68,8 @@ export function merge(base, over) {
 export const LABELS = {
   book: 'Book a visit',
   call: 'Call',
+  callUs: 'Call us',
+  visitUs: 'Visit us',
   whatsapp: 'WhatsApp',
   directions: 'Directions',
   menu: 'Menu',

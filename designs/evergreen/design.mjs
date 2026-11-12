@@ -1,6 +1,6 @@
 // Evergreen: a serif headline with an italic second line, a deep green disc
 // holding a drawn row of braces, and treatments you can filter by kind.
-import { html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 // Seven teeth on an arc, each with its bracket, joined by one wire. Drawn flat in the palette.
 function braces() {
@@ -39,12 +39,12 @@ export default {
   defaults: {
     hero: { title: 'Healthier smiles.\n*Gentle, honest care.*' },
     about: { title: 'How we work' },
-    services: { title: 'Our services, *under one roof*', text: 'Each treatment comes with what happens, how long it takes and the starting fee, so you arrive knowing what to expect.' },
-    doctors: { title: 'Meet *our doctors*', text: 'Registered, experienced and easy to talk to.' },
-    reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'Fees, insurance and what to bring.' },
+    services: { title: 'Our *services*' },
+    doctors: { title: 'Meet *our doctors*' },
+    reviews: { title: 'Patient *reviews*' },
+    patientInfo: { title: 'Patient *info*' },
     cta: { title: 'In pain *right now?*' },
-    contact: { title: 'Get in touch' },
+    contact: { title: 'Get *in touch*' },
   },
   render(ctx) {
     const { c, L } = ctx;
@@ -73,10 +73,8 @@ export default {
     <div class="acts" data-load style="--d:460ms">${book(ctx)}${p.wa ? html`<a class="btn btn--green" href="${p.wa}" target="_blank" rel="noopener">${L.whatsapp}</a>` : callLink(ctx)}</div>
   </div>
   <div class="hero__art" data-load style="--d:200ms">
-    ${raw(braces())}
-    <p class="note note--1">${book(ctx, 'link')}</p>
+    <div class="disc frame" data-drift>${pic(ctx, c.img.portrait, { eager: true })}</div>
     <p class="note note--2"><strong>${openStatus(ctx)}</strong></p>
-    ${p.tel ? html`<p class="note note--3"><a href="${p.tel}">${p.phone}</a></p>` : ''}
   </div>
 </section>
 
@@ -115,13 +113,7 @@ ${lead ? html`<section class="sec reviews wrap" id="reviews">
 </section>` : ''}
 
 <section class="sec info" id="patient-info">
-  <div class="wrap">
-    ${secHead(c.patientInfo, 'head g12')}
-    <div class="g12 info__body">
-      <div class="info__topics" data-reveal>${topicTabs(ctx)}</div>
-      ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-    </div>
-  </div>
+  <div class="wrap">${patientInfo(ctx)}</div>
 </section>
 
 <section class="cta wrap">
@@ -132,15 +124,7 @@ ${lead ? html`<section class="sec reviews wrap" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

@@ -1,6 +1,6 @@
 // Atelier: charcoal and stone, one light grotesk, generous space. Dark and
 // pale fields alternate; photographs are quiet and large.
-import { html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Atelier',
@@ -12,10 +12,10 @@ export default {
   defaults: {
     hero: { title: 'Modern dentistry,\n*refined around you*' },
     about: { title: 'Clinical confidence, *never clinical*' },
-    services: { title: 'Our services, *crafted with care*', text: 'Care for health. Craft for confidence.' },
-    doctors: { title: 'Meet our doctors', text: 'You should notice the person before the dentistry.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'A clear path from first conversation to final result.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Finish well. *Follow through*' },
     contact: { title: 'Get in touch' },
   },
@@ -60,7 +60,6 @@ export default {
 <section class="plate">
   <figure class="plate__pic" data-reveal="open">${pic(ctx, c.img.smile)}</figure>
   <div class="plate__body" data-stagger>
-    <p class="plate__say" data-reveal>${rich(c.doctors.text)}</p>
     ${c.stats.length ? html`<dl class="plate__figs" data-reveal>${c.stats.slice(0, 3).map((s) => html`<div><dt>${s.value}</dt><dd>${s.label}</dd></div>`)}</dl>` : ''}
   </div>
 </section>
@@ -79,11 +78,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    ${topicRows(ctx)}
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta">
@@ -96,15 +91,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

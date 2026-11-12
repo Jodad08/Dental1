@@ -1,6 +1,6 @@
 // Precision: a sky for a first screen, very large light type and the practice
 // itself seen through a row of standing slats.
-import { html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText, url } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText, url } from '../../build/kit.mjs';
 
 // One picture cut into standing bars of different heights (a clip-path, so any photograph works).
 const HEIGHTS = [70, 84, 100, 92, 96, 78];
@@ -29,10 +29,10 @@ export default {
   defaults: {
     hero: { title: 'Dentistry, down\nto the detail' },
     about: { title: 'Careful hands, new instruments' },
-    services: { title: 'Our services', text: 'Each treatment with what it involves and what it costs.' },
-    doctors: { title: 'Meet our doctors', text: 'Four clinicians. You will know yours by name.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'The practical side, answered before you ask.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Seen the same day' },
     contact: { title: 'Get in touch' },
   },
@@ -94,11 +94,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    ${topicRows(ctx)}
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta">
@@ -109,15 +105,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

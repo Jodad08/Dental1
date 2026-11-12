@@ -1,6 +1,6 @@
 // Mint: a close-up smile across the first screen, grotesk headlines with an
 // italic didone turn, lime buttons and a dark band for the services.
-import { html, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Mint',
@@ -13,10 +13,10 @@ export default {
   defaults: {
     hero: { title: 'Healthy smiles\n*start here*' },
     about: { title: 'What we *stand for*' },
-    services: { title: 'Our services, *for every smile*', text: 'Choose a treatment to see what it involves.' },
-    doctors: { title: 'Meet *our doctors*', text: 'Four dentists, one standard of care.' },
+    services: { title: 'Our *services*' },
+    doctors: { title: 'Meet *our doctors*' },
     reviews: { title: 'Patient *reviews*' },
-    patientInfo: { title: 'Patient *info*', text: 'First visits, insurance, fees and forms.' },
+    patientInfo: { title: 'Patient *info*' },
     cta: { title: 'Something *hurts?*' },
     contact: { title: 'Get *in touch*' },
   },
@@ -85,11 +85,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    <div class="info__topics" data-reveal>${topicTabs(ctx)}</div>
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta">
@@ -100,15 +96,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

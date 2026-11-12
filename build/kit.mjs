@@ -237,7 +237,7 @@ const brk = (arr) => arr.map((l, i) => html`${i ? html`<br>` : ''}${l}`);
 
 /** h2 + supporting sentence for a section (c.services, c.doctors, …). */
 export const secHead = (s, cls = 'head') =>
-  html`<div class="${cls}" data-stagger><h2 data-reveal>${rich(s.title)}</h2>${s.text ? html`<p data-reveal>${rich(s.text)}</p>` : ''}</div>`;
+  html`<div class="${cls}" data-stagger><h2 data-reveal>${rich(s.title)}</h2></div>`;
 
 export const doctorList = (ctx, cls = 'docs') =>
   html`<ul class="${cls}" data-stagger>${ctx.c.doctors.items.map(
@@ -323,3 +323,42 @@ export const serviceList = (ctx, cls = 'sv', { pics = true, items = ctx.c.servic
 
 export const statList = (ctx, cls = 'figs') =>
   ctx.c.stats.length ? html`<dl class="${cls}" data-stagger>${ctx.c.stats.map((s) => html`<div data-reveal><dt>${s.value}</dt><dd>${s.label}</dd></div>`)}</dl>` : '';
+
+// ---------------------------------------------------------------- shared sections
+// Patient info and Get in touch are laid out the same way in every design, so
+// they read as one tidy unit; each design only supplies colours and corners.
+
+/** Patient info: one row of tabs (each topic, then the common questions) and one pane. */
+export function patientInfo(ctx) {
+  const { c, L } = ctx;
+  const tabs = [
+    ...c.patientInfo.topics.map((t) => ({ label: t.title, body: topicBody(t) })),
+    ...(c.patientInfo.faq.length ? [{ label: L.questions, body: faq(ctx) }] : []),
+  ];
+  return html`<div class="pi" data-pick>
+  <div class="pi__head" data-stagger>
+    <h2 data-reveal>${rich(c.patientInfo.title)}</h2>
+    <div class="pi__tabs" role="tablist" aria-label="${plain(c.patientInfo.title)}" data-reveal>${tabs.map((t, i) => html`<button type="button" role="tab" aria-selected="${i === 0}" data-pick-item="${i}" class="${i === 0 ? 'is-on' : ''}">${t.label}</button>`)}</div>
+  </div>
+  <div class="pi__panel" data-reveal>${tabs.map((t, i) => html`<div class="pi__pane${i === 0 ? ' is-on' : ''}" role="tabpanel" data-pick-show="${i}"><h3>${t.label}</h3>${t.body}</div>`)}</div>
+</div>`;
+}
+
+/** Get in touch: three matching cards (call, visit, hours) beside the form. */
+export function contactSection(ctx) {
+  const { c, L } = ctx;
+  const p = c.practice;
+  const card = (name, title, body) => html`<li class="ct__card" data-reveal><span class="ct__ico">${icon(name)}</span><div><h3>${title}</h3>${body}</div></li>`;
+  return html`<div class="ct">
+  <div class="ct__left" data-stagger>
+    <h2 data-reveal>${rich(c.contact.title)}</h2>
+    <ul class="ct__cards">
+      ${p.tel || p.mailto ? card('phone', L.callUs, html`${p.tel ? html`<p><a class="ct__big" href="${p.tel}">${p.phone}</a></p>` : ''}${p.mailto ? html`<p><a class="link" href="${p.mailto}">${p.email}</a></p>` : ''}`) : ''}
+      ${p.addressLine ? card('pin', L.visitUs, html`<p>${p.addressLines.map((l, i) => html`${i ? html`<br>` : ''}${l}`)}</p><p><a class="link" href="${p.mapUrl}" target="_blank" rel="noopener">${L.directions}</a></p>`) : ''}
+      ${c.hours.any ? card('clock', L.hours, html`<p><strong>${openStatus(ctx)}</strong></p>${hoursTable(ctx)}`) : ''}
+    </ul>
+  </div>
+  <div class="ct__form" data-reveal>${contactForm(ctx)}</div>
+</div>
+${mapEmbed(ctx)}`;
+}

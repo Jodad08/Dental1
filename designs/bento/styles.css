@@ -92,3 +92,5 @@ body > .stack { padding-block: var(--margin); }
 }
 .stack > * { min-width: 0; }
 .skip { color: #fff; }
+
+:root { --tab-on: var(--blue); --tab-on-ink: #fff; --field-bg: #fff; }

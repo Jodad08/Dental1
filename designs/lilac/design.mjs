@@ -1,6 +1,6 @@
 // Lilac: a white sheet on soft grey, navigation as a row of pills, a rounded
 // photograph for the first screen and services as a cluster of unlike tiles.
-import { html, rich, pic, headline, navLinks, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navLinks, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Lilac',
@@ -13,10 +13,10 @@ export default {
   defaults: {
     hero: { title: 'Daily care for\na healthy smile' },
     about: { title: 'About the practice' },
-    services: { title: 'Our services', text: 'Routine care, cosmetic work and implants, each with a starting fee.' },
-    doctors: { title: 'Meet our doctors', text: 'Four dentists who know their patients by name.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'Everything practical about a visit.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Seen the same day' },
     contact: { title: 'Get in touch' },
   },
@@ -53,7 +53,6 @@ export default {
 <section class="sec services" id="services">
   <div class="services__head" data-stagger>
     <h2 data-reveal>${rich(c.services.title)}</h2>
-    <p data-reveal>${rich(c.services.text)}</p>
   </div>
   <ul class="cluster" data-stagger>${items.map(
     (s, i) => html`<li class="k k--${(i % 8) + 1}" data-reveal>
@@ -78,13 +77,8 @@ export default {
   ${doctorList(ctx)}
 </section>
 
-<section class="sec info g12" id="patient-info">
-  <figure class="info__pic frame" data-reveal="open">${pic(ctx, c.img.clinic)}</figure>
-  <div class="info__body">
-    ${secHead(c.patientInfo, 'info__head')}
-    <div class="acc" data-reveal>${c.patientInfo.topics.map((t, i) => html`<details class="acc__item" name="topics"${i === 0 ? ' open' : ''}><summary><span>${t.title}</span></summary><div class="acc__a">${topicBody(t)}</div></details>`)}</div>
-  </div>
-  ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
+<section class="sec info" id="patient-info">
+  ${patientInfo(ctx)}
 </section>
 
 ${lead ? html`<section class="sec reviews" id="reviews">
@@ -103,15 +97,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </section>
 
 <section class="sec contact" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

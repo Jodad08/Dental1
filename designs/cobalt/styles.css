@@ -106,3 +106,5 @@
 @media (max-width: 34rem) {
   .quotes { grid-template-columns: 1fr; }
 }
+
+.contact { --panel-bg: var(--bg); --field-bg: var(--surface); }

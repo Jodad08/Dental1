@@ -1,6 +1,6 @@
 // Terracotta: a cream sheet on a clay frame, a dark photograph for the first
 // screen and the services as a list that shows each treatment's picture.
-import { html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Terracotta',
@@ -13,10 +13,10 @@ export default {
   defaults: {
     hero: { title: 'Trusted\ndental care' },
     about: { title: 'Dentistry without the hurry' },
-    services: { title: 'Our services', text: 'Point at a treatment to see it. Every fee is agreed before we start.' },
-    doctors: { title: 'Meet our doctors', text: 'Four dentists, each with their own field, under one roof.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'The practical side of a visit, in one place.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'In pain today?' },
     contact: { title: 'Get in touch' },
   },
@@ -61,7 +61,6 @@ export default {
   <div class="panel">
     <div class="panel__head" data-stagger>
       <h2 data-reveal>${rich(c.services.title)}</h2>
-      <p data-reveal>${rich(c.services.text)}</p>
       <p data-reveal>${book(ctx)}</p>
     </div>
     ${servicePick(ctx)}
@@ -82,11 +81,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    ${topicRows(ctx)}
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta wrap">
@@ -97,15 +92,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 

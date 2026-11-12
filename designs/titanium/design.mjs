@@ -1,6 +1,6 @@
 // Titanium: a steel-blue field, light grotesk type at great size and a drawn
 // implant standing in the middle of the first screen.
-import { html, raw, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 // The practice's own object, drawn flat in the palette: crown, abutment, screw.
 const threads = [0, 1, 2, 3, 4, 5, 6]
@@ -34,10 +34,10 @@ export default {
   defaults: {
     hero: { title: 'Exceptional care,\n*straighter smiles*' },
     about: { title: 'A plan before any treatment' },
-    services: { title: 'Our services', text: 'General, cosmetic and implant dentistry in one practice, each with its fee stated up front.' },
-    doctors: { title: 'Meet our doctors', text: 'The people who will actually be looking after you.' },
+    services: { title: 'Our services' },
+    doctors: { title: 'Meet our doctors' },
     reviews: { title: 'Patient reviews' },
-    patientInfo: { title: 'Patient info', text: 'First visits, insurance, fees and forms.' },
+    patientInfo: { title: 'Patient info' },
     cta: { title: 'Need to be seen today?' },
     contact: { title: 'Get in touch' },
   },
@@ -99,11 +99,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </section>` : ''}
 
 <section class="sec info wrap" id="patient-info">
-  ${secHead(c.patientInfo, 'head g12')}
-  <div class="g12 info__body">
-    <div class="info__topics" data-reveal>${topicTabs(ctx)}</div>
-    ${c.patientInfo.faq.length ? html`<div class="info__faq" data-reveal><h3>${L.questions}</h3>${faq(ctx)}</div>` : ''}
-  </div>
+  ${patientInfo(ctx)}
 </section>
 
 <section class="cta wrap">
@@ -114,15 +110,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </section>
 
 <section class="sec contact wrap" id="contact">
-  <div class="g12">
-    <div class="contact__left" data-stagger>
-      <h2 data-reveal>${rich(c.contact.title)}</h2>
-      <p class="lead" data-reveal>${rich(c.contact.text)}</p>
-      <div data-reveal>${contactFacts(ctx)}</div>
-    </div>
-    <div class="contact__form" data-reveal>${contactForm(ctx)}</div>
-  </div>
-  ${mapEmbed(ctx)}
+  ${contactSection(ctx)}
 </section>
 </main>
 
