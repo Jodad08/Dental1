@@ -1,0 +1,12 @@
+{
+  // Static site on Cloudflare Workers (Static Assets). No server code.
+  //   npm run deploy            build, then publish to https://<name>.<your-subdomain>.workers.dev
+  //   npm run deploy -- --name smith-dental-preview     publish under another name (one per client)
+  "name": "dental-preview",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "dental-site-templates",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Thirteen dental practice website designs filled from one content file, previewed and hosted on Cloudflare Workers.",
+  "scripts": {
+    "dev": "node build/dev.mjs",
+    "build": "node build/build.mjs",
+    "check": "node tools/check.mjs",
+    "preview": "node build/build.mjs && wrangler dev",
+    "deploy": "node build/build.mjs && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

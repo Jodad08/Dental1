@@ -1,0 +1,189 @@
+/* Shared foundation for every design: reset, tokens, and the parts that must
+   behave the same everywhere (buttons, form, hours, FAQ, menu sheet, motion).
+   It has no look of its own. Each design sets the tokens in its own :root. */
+
+:root {
+  --bg: #fff;
+  --surface: #f2f2f0;
+  --ink: #111;
+  --muted: #55554f;
+  --accent: #111;
+  --accent-ink: #fff;
+  --font-display: system-ui, sans-serif;
+  --font-text: system-ui, sans-serif;
+
+  --margin: clamp(1rem, 2.2vw, 2rem);
+  --gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+  --section: clamp(4.5rem, 10vw, 10rem);
+
+  --step-small: 0.875rem;
+  --step-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: clamp(2.75rem, 1rem + 7.5vw, 7.5rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 5rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-text); font-size: var(--step-body); line-height: 1.5;
+  font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img, svg, video, iframe { display: block; max-width: 100%; }
+img, video { height: auto; }
+h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd, table { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: var(--display-weight, 500);
+  letter-spacing: var(--display-tracking, -0.03em); line-height: var(--display-leading, 1);
+  text-wrap: balance; hyphens: none;
+}
+h1 { font-size: var(--step-display); }
+h2 { font-size: var(--step-head); }
+h3 { font-size: var(--step-lead); letter-spacing: -0.01em; line-height: 1.2; }
+p { text-wrap: pretty; max-width: 62ch; }
+em { font-style: normal; }
+table { border-collapse: collapse; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--focus, var(--accent)); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+.wrap { padding-inline: var(--margin); max-width: 110rem; margin-inline: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip { position: absolute; left: var(--margin); top: -4rem; z-index: 200; background: var(--ink); color: var(--bg); padding: 0.75rem 1rem; }
+.skip:focus { top: 0.5rem; }
+.lead { font-size: var(--step-lead); line-height: 1.35; max-width: 40ch; }
+.small { font-size: var(--step-small); line-height: 1.45; }
+.muted { color: var(--muted); }
+.cover { width: 100%; height: 100%; object-fit: cover; }
+.i { width: 1.25em; height: 1.25em; flex: none; stroke-width: 1.75; }
+
+/* A missing picture: a quiet filled block, never a broken image. */
+.ph { display: grid; place-items: center; width: 100%; height: 100%; background: var(--surface); color: var(--muted); font-family: var(--font-display); font-size: 1.5rem; }
+
+/* Buttons: flat, one fill, one shape per design (--btn-radius). */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+  min-height: 3.25rem; padding: 0 1.6rem; border: 0; border-radius: var(--btn-radius, 999px);
+  background: var(--accent); color: var(--accent-ink); font-weight: 500; line-height: 1.1; text-align: center; cursor: pointer;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, color var(--t-hover) ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn--quiet { background: var(--surface); color: var(--ink); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--btn-hover, var(--ink)); color: var(--btn-hover-ink, var(--bg)); }
+}
+.link { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 0.2em; text-decoration-thickness: 0.07em; transition: text-decoration-color var(--t-hover) ease; }
+@media (hover: hover) and (pointer: fine) { .link:hover { text-decoration-color: currentColor; } }
+
+/* Opening hours: a real table, no drawn lines. */
+.hours { width: 100%; font-variant-numeric: tabular-nums; }
+.hours th { text-align: left; font-weight: inherit; padding: 0.3rem 1.5rem 0.3rem 0; white-space: nowrap; }
+.hours td { text-align: right; padding: 0.3rem 0; white-space: nowrap; }
+.hours .is-closed { color: var(--muted); }
+.open-status { font-variant-numeric: tabular-nums; }
+
+.stars { display: inline-flex; gap: 0.1em; color: var(--star, currentColor); vertical-align: -0.15em; }
+.stars .i { width: 1em; height: 1em; }
+.points { display: grid; gap: 0.4rem; margin-top: 1rem; }
+.points li { padding-left: 1.25rem; position: relative; }
+.points li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent-mark, var(--accent)); }
+.topic-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; }
+.social { display: flex; gap: 1rem; }
+.social a { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin: -0.6rem; }
+.legal { font-size: var(--step-small); max-width: none; }
+
+/* Appointment form: filled fields, no outlines. */
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.form label { display: grid; gap: 0.4rem; font-size: var(--step-small); }
+.form__wide, .form__end { grid-column: 1 / -1; }
+.form input, .form select, .form textarea {
+  width: 100%; min-height: 3.25rem; padding: 0.85rem 1rem; border: 0; border-radius: var(--field-radius, 0);
+  background: var(--field, var(--surface)); color: var(--field-ink, var(--ink)); font-size: 1rem;
+}
+.form textarea { resize: vertical; min-height: 6.5rem; }
+.form__end { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 0.5rem; }
+.form__note { font-size: var(--step-small); }
+@media (max-width: 34rem) { .form { grid-template-columns: 1fr; } }
+
+/* Questions: native <details>, one open at a time, sign drawn in CSS. */
+.faq__item summary { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 1rem 0; cursor: pointer; list-style: none; font-size: var(--step-lead); line-height: 1.25; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after { content: "+"; flex: none; font-weight: 400; line-height: 1; transition: transform var(--t-ui) var(--ease-out); }
+.faq__item[open] summary::after { transform: rotate(45deg); }
+.faq__a { padding: 0 3rem 1.25rem 0; }
+@supports (interpolate-size: allow-keywords) {
+  .faq__item { interpolate-size: allow-keywords; }
+  .faq__item::details-content { height: 0; overflow: clip; transition: height 320ms var(--ease-out), content-visibility 320ms allow-discrete; }
+  .faq__item[open]::details-content { height: auto; }
+}
+
+/* Phone menu: a plain full-screen sheet opened by a text button. */
+.menu-btn { display: none; min-height: 2.75rem; padding: 0 0.25rem; font-weight: 500; }
+.mnav { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; padding: var(--margin); background: var(--mnav-bg, var(--bg)); color: var(--mnav-ink, var(--ink)); overflow-y: auto; }
+.mnav__top { display: flex; justify-content: space-between; align-items: center; min-height: 2.75rem; }
+.mnav__name { font-family: var(--font-display); font-weight: 500; }
+.mnav__close { min-height: 2.75rem; font-weight: 500; }
+.mnav__links { display: grid; gap: 0.25rem; margin-block: auto; padding-block: 2rem; }
+.mnav__links a { font-family: var(--font-display); font-size: clamp(2rem, 9vw, 3rem); font-weight: var(--display-weight, 500); letter-spacing: var(--display-tracking, -0.03em); line-height: 1.15; }
+.mnav__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.mnav__tel { font-size: var(--step-lead); }
+@media (max-width: 56rem) {
+  .menu-btn { display: inline-flex; align-items: center; }
+  nav.nav { display: none; }
+}
+
+/* The practice name fitted to its box; site.js measures and sets the size. */
+.fit { display: inline-block; white-space: nowrap; font-family: var(--font-display); line-height: 0.82; font-size: 12vw; }
+
+/* Preview bar (only in the all-designs preview build). */
+.pv { position: fixed; z-index: 90; left: 50%; bottom: 0.75rem; transform: translateX(-50%); display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem; border-radius: 999px; background: #111; color: #fff; font: 500 0.8125rem/1 system-ui, sans-serif; white-space: nowrap; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28); }
+.pv a, .pv span { padding: 0.6rem 0.8rem; border-radius: 999px; }
+.pv a:hover { background: #333; }
+.pv__demo { background: #f4d35e; color: #111; }
+@media (max-width: 34rem) { .pv__demo { display: none; } }
+
+/* ---------------------------------------------------------------- motion
+   Everything is in place on the first paint; these only add arrival. Hidden
+   states apply under html.js and only when motion is allowed. */
+.ln { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+[data-line] { display: block; }
+[data-drift] { overflow: clip; }
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-line] { transform: translateY(108%); animation: line-up 900ms var(--ease-expo) forwards; animation-delay: calc(120ms + var(--i, 0) * 100ms); }
+  .js [data-load] { opacity: 0; transform: translateY(12px); animation: load-rise 600ms var(--ease-out) forwards; animation-delay: var(--d, 420ms); }
+  .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out) calc(var(--i, 0) * 70ms), transform 900ms var(--ease-expo) calc(var(--i, 0) * 70ms); }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+  .js [data-reveal="open"] { opacity: 1; transform: none; }
+  .js [data-reveal="open"] > * { clip-path: inset(0 0 100% 0); transform: scale(1.08); transition: clip-path 1100ms var(--ease-in-out) calc(var(--i, 0) * 70ms), transform 1500ms var(--ease-soft); }
+  .js [data-reveal="open"].is-in > * { clip-path: inset(0); transform: none; }
+  @supports (animation-timeline: view()) {
+    [data-drift] > img { scale: 1.1; animation: drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes line-up { to { transform: none; } }
+@keyframes load-rise { to { opacity: 1; transform: none; } }
+@keyframes drift { from { translate: 0 -4%; } to { translate: 0 4%; } }
+
+/* Layout helpers shared by the designs. */
+.g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+.sec { padding-block: var(--section); }
+.frame { overflow: clip; background: var(--surface); border-radius: var(--media-radius, 0); }
+.frame > img, .frame > .ph { width: 100%; height: 100%; object-fit: cover; }
+.avatars { display: inline-flex; }
+.avatars > * { width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; margin-left: -0.6rem; outline: 2px solid var(--bg); font-size: 0.8rem; }
+.avatars > :first-child { margin-left: 0; }

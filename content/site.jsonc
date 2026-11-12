@@ -1,0 +1,195 @@
+// ─────────────────────────────────────────────────────────────────────────
+//  THE ONLY FILE YOU EDIT FOR A CLIENT.
+//
+//  Everything below is a SAMPLE practice. Replace it with the client's real
+//  details, drop their pictures into content/images/, then set "demo" to
+//  false. Never publish the sample reviews, figures or photographs for a
+//  real practice.
+//
+//  Leave a "title" or "text" empty ("") to keep the wording a design ships
+//  with. In titles, a line break is \n and *stars* mark the words a design
+//  may set in its second tone or italic. Keep titles under about 40
+//  characters so they hold two lines on a phone.
+// ─────────────────────────────────────────────────────────────────────────
+{
+  // "all" builds every design plus a chooser page (for showing a client).
+  // A design name (see designs/) builds only that one, as the real site.
+  "design": "all",
+
+  // true while this file still holds sample content. Shows a "Sample content"
+  // tag in previews and a warning in the build.
+  "demo": true,
+
+  "lang": "en",
+
+  "practice": {
+    "name": "Juniper Dental",
+    "shortName": "Juniper",              // used where the name is set very large
+    "kind": "Family and cosmetic dentistry",
+    "phone": "(503) 555-0142",
+    "email": "hello@juniperdental.example",
+    "whatsapp": "",                      // number with country code; shows a WhatsApp action where a design has one
+    "bookingUrl": "",                    // online booking link; empty sends every "Book a visit" button to the form
+    "address": {
+      "street": "412 Harbour Street",
+      "city": "Alder Bay",
+      "region": "OR",
+      "postal": "97000",
+      "country": "US"
+    },
+    "mapUrl": "",                        // empty: a Google Maps search for the address
+    "mapEmbedUrl": "",                   // optional Google Maps embed link (Share → Embed a map → src)
+    "timezone": "America/Los_Angeles",   // for the live "Open now" line
+    "hourFormat": 12,                    // 12 or 24
+    "hours": {                           // ["opens", "closes"] in 24-hour time; null when closed
+      "mon": ["08:00", "18:00"],
+      "tue": ["08:00", "18:00"],
+      "wed": ["08:00", "18:00"],
+      "thu": ["08:00", "19:30"],
+      "fri": ["08:00", "15:00"],
+      "sat": ["09:00", "13:00"],
+      "sun": null
+    },
+    "emergency": "Toothache or a broken tooth? Call before 10 am and we will see you the same day.",
+    "social": {
+      "instagram": "https://instagram.com/",
+      "facebook": "https://facebook.com/"
+    }
+  },
+
+  // Pictures. Paths are relative to this folder. Any slot may be left empty:
+  // designs fall back to another picture, then to a plain block.
+  // A picture can also be { "src": "...", "alt": "...", "position": "50% 20%" }
+  // to say what it shows and which part must stay in frame when cropped.
+  "images": {
+    "logo": "",                                   // optional; the name is set in type when empty
+    "hero": { "src": "images/hero.jpg", "alt": "A dentist talks a patient through her treatment in a bright surgery", "position": "50% 35%" },
+    "smile": { "src": "images/smile.jpg", "alt": "A woman with dark curly hair laughing", "position": "60% 40%" },
+    "portrait": { "src": "images/portrait.jpg", "alt": "A smiling woman with her hair tied up", "position": "50% 25%" },
+    "clinic": { "src": "images/clinic.jpg", "alt": "A treatment room with a teal dental chair and large windows" },
+    "care": { "src": "images/planning.jpg", "alt": "Two clinicians review a 3D scan on a screen" },
+    "detail": { "src": "images/detail.jpg", "alt": "A dental mirror and probe on a white surface" }
+  },
+
+  "hero": {
+    "title": "",
+    "text": "Check-ups, implants, aligners and children's dentistry in Alder Bay. Open six days a week, with same-day visits when something hurts."
+  },
+
+  // Up to four figures. Only use numbers the practice can stand behind.
+  "stats": [
+    { "value": "4.9", "label": "average of 312 Google reviews" },
+    { "value": "14", "label": "years on Harbour Street" },
+    { "value": "8,400", "label": "patients on our books" },
+    { "value": "6", "label": "days a week, late on Thursdays" }
+  ],
+
+  "about": {
+    "title": "",
+    "text": "Juniper opened in 2011 with one chair and a promise to explain everything before we do it. Today four dentists share five surgeries, a 3D scanner and an in-house lab, and the promise has not changed: you see the plan and the fee before treatment starts.",
+    "points": [
+      { "title": "The plan in writing", "text": "Every option, what it costs and how long it takes, before you decide." },
+      { "title": "Unhurried appointments", "text": "New patient visits are a full hour. Nobody is rushed out of the chair." },
+      { "title": "Gentle with nerves", "text": "Numbing gel first, breaks whenever you raise a hand, sedation if you want it." },
+      { "title": "Made here", "text": "Crowns and aligner trays are scanned and made on site, often the same day." }
+    ]
+  },
+
+  "services": {
+    "title": "",
+    "text": "",
+    "items": [
+      { "name": "Check-ups and cleaning", "text": "A full examination, digital X-rays when needed and a thorough clean, twice a year.", "price": "from $95", "category": "Family", "image": { "src": "images/service-checkup.jpg", "alt": "A dentist holding a mirror and probe" } },
+      { "name": "Teeth whitening", "text": "Take-home trays made from a scan of your teeth, or a single 90-minute visit.", "price": "from $290", "category": "Cosmetic", "image": { "src": "images/service-whitening.jpg", "alt": "A woman laughing" } },
+      { "name": "Dental implants", "text": "A fixed, natural-looking replacement for one tooth or several, planned on a 3D scan.", "price": "from $2,400", "category": "Restorative", "image": { "src": "images/service-implants.jpg", "alt": "A model showing an implant between two teeth" } },
+      { "name": "Clear aligners", "text": "Removable trays that straighten teeth in six to eighteen months, without brackets.", "price": "from $3,200", "category": "Orthodontics", "image": { "src": "images/service-aligners.jpg", "alt": "A clear aligner being fitted over the upper teeth" } },
+      { "name": "Crowns and veneers", "text": "Porcelain shaped and shaded to match the teeth beside it, fitted in one visit.", "price": "from $950", "category": "Restorative", "image": { "src": "images/service-crowns.jpg", "alt": "A 3D scan of a jaw on a tablet" } },
+      { "name": "Children's dentistry", "text": "A calm first visit from age one, with fluoride, sealants and plenty of patience.", "price": "from $70", "category": "Family", "image": { "src": "images/service-children.jpg", "alt": "A father carrying his two young children" } },
+      { "name": "Hygiene visits", "text": "Scale and polish with our hygienist, and a brushing routine that fits your day.", "price": "from $110", "category": "Family", "image": { "src": "images/service-hygiene.jpg", "alt": "Bamboo toothbrushes in a glass" } },
+      { "name": "Emergency care", "text": "Pain, swelling, a lost filling or a knocked-out tooth, seen the same day.", "price": "from $120", "category": "Family", "image": { "src": "images/service-emergency.jpg", "alt": "A dentist at work wearing loupes" } }
+    ]
+  },
+
+  "doctors": {
+    "title": "",
+    "text": "",
+    "items": [
+      { "name": "Dr. Elena Marsh", "role": "Principal dentist", "bio": "Elena founded Juniper in 2011. She looks after restorative work and most of our nervous patients.", "photo": { "src": "images/doctor-1.jpg", "alt": "Dr. Elena Marsh" } },
+      { "name": "Dr. Omar Haddad", "role": "Orthodontics and aligners", "bio": "Omar plans every aligner case himself and has straightened more than 600 smiles.", "photo": { "src": "images/doctor-2.jpg", "alt": "Dr. Omar Haddad" } },
+      { "name": "Dr. Grace Adeyemi", "role": "Implants and oral surgery", "bio": "Grace places implants and takes out wisdom teeth, usually faster than people expect.", "photo": { "src": "images/doctor-3.jpg", "alt": "Dr. Grace Adeyemi" } },
+      { "name": "Dr. Daniel Whitlock", "role": "Children's dentistry", "bio": "Daniel sees patients from their first tooth and keeps a drawer of stickers for the brave.", "photo": { "src": "images/doctor-4.jpg", "alt": "Dr. Daniel Whitlock" } }
+    ]
+  },
+
+  // Real reviews only. Paste them as written and name where they came from.
+  "reviews": {
+    "title": "",
+    "text": "",
+    "rating": "4.9",
+    "count": "312",
+    "source": "Google",
+    "url": "",
+    "items": [
+      { "quote": "I had not seen a dentist in nine years. Dr. Marsh spent an hour going through everything and never once made me feel bad about it.", "name": "Marcus T.", "detail": "Patient since 2022", "photo": "images/patient-1.jpg" },
+      { "quote": "My implant looks exactly like the tooth I lost. I saw the whole plan on a screen before anything happened.", "name": "Carol W.", "detail": "Implant patient", "photo": "images/patient-2.jpg" },
+      { "quote": "Called at 8 with a cracked molar, in the chair by 11, back at work after lunch.", "name": "Ben K.", "detail": "Emergency visit", "photo": "images/patient-3.jpg" },
+      { "quote": "Fourteen months of aligners and not one surprise on the bill. They told me the fee on day one and that was the fee.", "name": "Hannah L.", "detail": "Aligner patient", "photo": "images/patient-4.jpg" },
+      { "quote": "Both my kids ask when they can go back. I did not think I would ever write that about a dentist.", "name": "Priya S.", "detail": "Mum of two", "photo": "images/patient-5.jpg" }
+    ]
+  },
+
+  "patientInfo": {
+    "title": "",
+    "text": "",
+    "topics": [
+      { "title": "Your first visit", "text": "Allow an hour. We take X-rays if they are needed, examine your teeth and gums, and talk through what we find before anything is booked.", "points": ["Arrive ten minutes early", "Bring photo ID and your insurance card", "Bring a list of any medication you take"] },
+      { "title": "Insurance", "text": "We are in network with most PPO plans and send the claim for you. You pay only your share on the day.", "points": ["Most major PPO plans accepted", "Benefits checked before your visit", "No insurance? Ask about our membership plan"] },
+      { "title": "Fees and payment", "text": "You get a written estimate before treatment starts. Nothing is added afterwards.", "points": ["Cards, HSA and FSA accepted", "Interest-free plans over 6 or 12 months", "Membership plan from $29 a month"] },
+      { "title": "Forms", "text": "Fill these in at home and your first visit starts on time.", "links": [{ "label": "New patient form", "href": "#" }, { "label": "Medical history", "href": "#" }] }
+    ],
+    "faq": [
+      { "q": "Are you taking new patients?", "a": "Yes. New patients are usually seen within a week, and sooner if something hurts." },
+      { "q": "What if I am nervous?", "a": "Tell us when you book. We allow extra time, explain each step and stop whenever you raise a hand. Sedation is available for longer treatment." },
+      { "q": "Do I need a referral?", "a": "No. You can book directly for anything we offer, including implants and aligners." },
+      { "q": "How often should I come in?", "a": "Most people need a check-up and clean every six months. We will tell you if you can safely come less often." },
+      { "q": "What counts as an emergency?", "a": "Severe toothache, swelling, bleeding that will not stop, or a broken or knocked-out tooth. Call us and we will fit you in the same day." },
+      { "q": "Can I park nearby?", "a": "There are six free spaces behind the building and two-hour street parking on Harbour Street." }
+    ]
+  },
+
+  "contact": {
+    "title": "",
+    "text": "Call, write, or leave your details and we will ring you back to find a time.",
+    // Where the form posts (Formspree, Basin, your own endpoint). Empty: the
+    // form opens the visitor's email app with their answers filled in.
+    "formAction": ""
+  },
+
+  "cta": { "title": "", "text": "" },
+
+  // Shown small in the footer. Clear it once the pictures are the client's own.
+  "credits": "Sample photographs from Unsplash.",
+
+  "seo": {
+    "title": "",                 // empty: "Name · kind · city"
+    "description": "",           // empty: the hero text
+    "url": "",                   // https://www.client-domain.com once it is live
+    "indexable": false           // true only when the real site launches
+  },
+
+  // Colour and font tokens to override, for example { "--accent": "#0b6e4f" }.
+  // Each design lists its tokens at the top of designs/<name>/styles.css.
+  "theme": {},
+
+  // Words that differ for one design only, same shape as this file:
+  // "perDesign": { "sage": { "hero": { "title": "Calm dentistry\nin Alder Bay" } } }
+  "perDesign": {
+    "mint": { "images": { "smile": { "src": "images/smile-closeup.jpg", "alt": "A close-up of a smile", "position": "50% 46%" } } },
+    "precision": { "images": { "clinic": { "src": "images/clinic-view.jpg", "alt": "A surgery with a stone wall and a window onto a garden" } } },
+    "aligner": { "images": { "detail": { "src": "images/aligners.jpg", "alt": "Hands holding clear aligners and their case" } } },
+    "terracotta": { "images": { "care": { "src": "images/treatment.jpg", "alt": "A dentist and nurse treating a patient", "position": "50% 30%" } } }
+  }
+
+  // Button and form wording can be changed or translated under "labels";
+  // the full list is LABELS in build/content.mjs.
+}
