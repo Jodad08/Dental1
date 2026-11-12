@@ -102,7 +102,7 @@ body { background: var(--mint); padding: var(--margin) var(--margin) 0; }
   .intro__text { grid-column: 1 / -1; grid-row: 1; }
   .values__copy { grid-row: 1; }
   .svc { grid-template-columns: 1fr; }
-  .svc__pics { order: -1; aspect-ratio: 4 / 3; position: static; }
+  .svc__pics { order: -1; aspect-ratio: 4 / 3; position: relative; top: auto; }
   .docs, .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 34rem) {

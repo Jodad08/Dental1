@@ -47,7 +47,7 @@ const copyDir = (from, to, skip = () => false) => {
     if (entry.name.startsWith('.') || skip(entry.name)) continue;
     const a = path.join(from, entry.name);
     const b = path.join(to, entry.name);
-    if (entry.isDirectory()) copyDir(a, b);
+    if (entry.isDirectory()) copyDir(a, b, skip);
     else {
       fs.mkdirSync(to, { recursive: true });
       fs.copyFileSync(a, b);
