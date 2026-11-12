@@ -136,6 +136,9 @@ write(
   `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n${indexable ? '' : '  X-Robots-Tag: noindex\n'}\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
 );
 
+// What each design sets aside from the house rules, for tools/check.mjs.
+write(path.join(root, '.check/allow.json'), JSON.stringify(Object.fromEntries(chosen.map((d) => [hubMode ? d.slug : 'site', d.allow || []]))));
+
 if (demo) warn('content/site.jsonc still has "demo": true. The practice, reviews, figures and photographs are samples; replace them before a client or the public sees this.');
 if (!indexable && !hubMode) warn('Search engines are told not to index this build. Set seo.indexable to true (and seo.url) when the site goes live.');
 console.log(`Built ${hubMode ? `${chosen.length} designs + chooser` : `"${chosen[0].slug}"`} for ${first.practice.name} → ${path.relative(root, outDir)}/`);
