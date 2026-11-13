@@ -1,6 +1,6 @@
 // Precision: a sky for a first screen, very large light type and the practice
 // itself seen through a row of standing slats.
-import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText, url } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText, url } from '../../build/kit.mjs';
 
 // One picture cut into standing bars of different heights (a clip-path, so any photograph works).
 const HEIGHTS = [70, 84, 100, 92, 96, 78];
@@ -110,11 +110,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    ${footFacts(ctx)}
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'invite')}</div>
 </footer>`;
   },
 };

@@ -127,3 +127,4 @@ body { background: var(--page); padding: var(--margin); }
   .quotes { grid-template-columns: 1fr; }
   .cluster { grid-template-columns: 1fr; }
 }
+.foot { --ft-btn: var(--accent); --ft-btn-ink: #fff; }

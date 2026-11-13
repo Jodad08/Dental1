@@ -1,6 +1,6 @@
 // Terracotta: a cream sheet on a clay frame, a dark photograph for the first
 // screen and the services as a list that shows each treatment's picture.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Terracotta',
@@ -97,11 +97,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'card')}</div>
 </footer>
 </div>`;
   },

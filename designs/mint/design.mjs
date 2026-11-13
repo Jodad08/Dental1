@@ -1,6 +1,6 @@
 // Mint: a close-up smile across the first screen, grotesk headlines with an
 // italic didone turn, lime buttons and a dark band for the services.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Mint',
@@ -101,11 +101,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'invite')}</div>
 </footer>
 </div>`;
   },

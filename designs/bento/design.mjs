@@ -1,6 +1,6 @@
 // Bento: white panels on a field of blue, heavy blue headlines, doctors in
 // leaf-shaped frames. Each section is its own panel.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Bento',
@@ -86,9 +86,7 @@ ${lead ? html`<section class="panel reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-  ${footFacts(ctx)}
-  ${legal(ctx)}
+  ${footer(ctx, 'phone')}
 </footer>
 </div>`;
   },

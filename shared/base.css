@@ -256,3 +256,58 @@ table { border-collapse: collapse; }
   .pi__tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .pi__panel { min-height: 0; }
 }
+
+/* Get in touch: heading across the top, cards and form the same height. */
+.ct { align-items: stretch; }
+.ct > h2 { grid-column: 1 / -1; }
+.ct__form { display: flex; }
+.ct__form .form { flex: 1; grid-template-rows: auto auto 1fr auto; }
+.ct__form .form__wide { grid-template-rows: auto 1fr; }
+.ct__form textarea { height: 100%; }
+
+/* Footers. Colours come from each design's .foot. */
+.ft { display: grid; gap: clamp(2rem, 5vw, 4.5rem); }
+.ft a:not(.btn) { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.2em; transition: text-decoration-color var(--t-hover) ease; }
+@media (hover: hover) { .ft a:not(.btn):hover { text-decoration-color: currentColor; } }
+.ft p { max-width: none; }
+.ft__base { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2.5rem; }
+.ft__nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.ft__base .legal { margin-left: auto; }
+.ft__notes, .ft__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem var(--gutter); align-items: start; }
+.ft__notes .btn, .ft__cols .btn { justify-self: end; }
+.ft__huge { display: block; font-weight: var(--display-weight, 500); letter-spacing: var(--display-tracking, -0.03em); text-decoration: none !important; }
+.ft__huge .fit, .ft__crop .fit { line-height: 0.86; }
+.ft__status { font-family: var(--font-display); font-weight: var(--display-weight, 500); letter-spacing: var(--display-tracking, -0.03em); font-size: clamp(2.5rem, 1rem + 7vw, 8rem); line-height: 0.95; }
+.ft__line { font-family: var(--font-display); font-weight: var(--display-weight, 500); letter-spacing: var(--display-tracking, -0.03em); font-size: clamp(2.5rem, 1.2rem + 5vw, 6rem); line-height: 0.98; }
+.ft__top { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 2rem var(--gutter); align-items: end; }
+.ft__reach { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem var(--gutter); align-items: end; }
+.ft__crop { font-weight: var(--display-weight, 500); letter-spacing: -0.05em; }
+.ft--invite .ft__crop { margin-bottom: -0.2em; }
+.foot:has(.ft--invite) { padding-bottom: 0 !important; overflow: clip; }
+.ft__post { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem clamp(2rem, 6vw, 6rem); padding: clamp(1.5rem, 4vw, 4rem); border-radius: var(--media-radius, 0); background: var(--card-bg, var(--bg)); color: var(--card-ink, var(--ink)); }
+.ft__msg { display: grid; gap: 1.25rem; justify-items: start; align-content: space-between; }
+.ft__addr { position: relative; display: grid; gap: 0.6rem; align-content: end; font-size: var(--step-lead); line-height: 1.3; padding-top: 8rem; }
+.ft__stamp { position: absolute; right: 0; top: 0; width: 5.5rem; aspect-ratio: 3 / 4; padding: 0.35rem; background: var(--stamp, #fff); }
+.ft__stamp > * { width: 100%; height: 100%; object-fit: cover; }
+.ft--split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 0 clamp(2rem, 6vw, 6rem); align-items: stretch; }
+.ft__pic > * { width: 100%; height: 100%; min-height: 24rem; object-fit: cover; border-radius: var(--media-radius, 0); }
+.ft__side { display: grid; gap: 2.5rem; align-content: space-between; }
+.ft__menu { display: grid; justify-items: start; }
+.ft__menu a { font-family: var(--font-display); font-weight: var(--display-weight, 500); letter-spacing: var(--display-tracking, -0.03em); font-size: clamp(2.25rem, 1.2rem + 3.6vw, 4.5rem); line-height: 1.08; }
+.ft--split .ft__reach { grid-template-columns: 1fr 1fr; }
+@media (max-width: 56rem) {
+  .ft__notes, .ft__cols { grid-template-columns: 1fr 1fr; }
+  .ft__notes .btn, .ft__cols .btn { justify-self: start; }
+  .ft__top, .ft__post, .ft--split { grid-template-columns: 1fr; }
+  .ft--split { gap: 2rem; }
+  .ft__pic > * { min-height: 0; aspect-ratio: 4 / 3; }
+  .ft__reach { grid-template-columns: 1fr 1fr; }
+  .ft__base .legal { margin-left: 0; }
+}
+.ft { grid-template-columns: minmax(0, 1fr); }
+.ft > * { min-width: 0; }
+.ft .hours .is-closed { color: inherit; }
+.ft.ft--split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+@media (max-width: 56rem) { .ft.ft--split { grid-template-columns: minmax(0, 1fr); } }
+.ft .btn { background: var(--ft-btn, var(--bg)); color: var(--ft-btn-ink, var(--ink)); }
+.ft__post .btn { background: var(--accent); color: var(--accent-ink); }

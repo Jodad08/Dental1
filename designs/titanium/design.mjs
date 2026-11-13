@@ -1,6 +1,6 @@
 // Titanium: a steel-blue field, light grotesk type at great size and a drawn
 // implant standing in the middle of the first screen.
-import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 // The practice's own object, drawn flat in the palette: crown, abutment, screw.
 const threads = [0, 1, 2, 3, 4, 5, 6]
@@ -115,11 +115,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </main>
 
 <footer class="foot wrap">
-  <div class="dark">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="dark">${footer(ctx, 'phone')}</div>
 </footer>`;
   },
 };

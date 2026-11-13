@@ -1,6 +1,6 @@
 // Cobalt: a full-width photograph under a white pill of navigation, then the
 // practice's own figures laid out as a board of tiles around one blue card.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 // A bar is drawn only where the figure really is a share: a percentage, or a rating out of five.
 function share(value) {
@@ -117,11 +117,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    ${footFacts(ctx)}
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'hours')}</div>
 </footer>`;
   },
 };

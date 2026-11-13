@@ -1,6 +1,6 @@
 // Royal: the familiar, trustworthy clinic site done cleanly. A blue contact
 // bar, bold two-tone headings, and questions filed under topics.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, social, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, social, serviceList, statList, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Royal',
@@ -100,11 +100,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    ${footFacts(ctx)}
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'hours')}</div>
 </footer>`;
   },
 };

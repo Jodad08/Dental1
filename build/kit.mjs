@@ -350,8 +350,8 @@ export function contactSection(ctx) {
   const p = c.practice;
   const card = (name, title, body) => html`<li class="ct__card" data-reveal><span class="ct__ico">${icon(name)}</span><div><h3>${title}</h3>${body}</div></li>`;
   return html`<div class="ct">
+  <h2 data-reveal>${rich(c.contact.title)}</h2>
   <div class="ct__left" data-stagger>
-    <h2 data-reveal>${rich(c.contact.title)}</h2>
     <ul class="ct__cards">
       ${p.tel || p.mailto ? card('phone', L.callUs, html`${p.tel ? html`<p><a class="ct__big" href="${p.tel}">${p.phone}</a></p>` : ''}${p.mailto ? html`<p><a class="link" href="${p.mailto}">${p.email}</a></p>` : ''}`) : ''}
       ${p.addressLine ? card('pin', L.visitUs, html`<p>${p.addressLines.map((l, i) => html`${i ? html`<br>` : ''}${l}`)}</p><p><a class="link" href="${p.mapUrl}" target="_blank" rel="noopener">${L.directions}</a></p>`) : ''}
@@ -361,4 +361,80 @@ export function contactSection(ctx) {
   <div class="ct__form" data-reveal>${contactForm(ctx)}</div>
 </div>
 ${mapEmbed(ctx)}`;
+}
+
+// ---------------------------------------------------------------- footers
+// Six ways to end a page, each a designed close rather than link columns.
+// A design picks one; its own stylesheet supplies the colours.
+function footBase(ctx) {
+  return html`<div class="ft__base">${navList(ctx, 'ft__nav')}${social(ctx)}${legal(ctx)}</div>`;
+}
+const brLines = (arr) => arr.map((l, i) => html`${i ? html`<br>` : ''}${l}`);
+
+export function footer(ctx, kind = 'name') {
+  const { c, L } = ctx;
+  const p = c.practice;
+  const addr = p.addressLine ? html`<a href="${p.mapUrl}" target="_blank" rel="noopener">${brLines(p.addressLines)}</a>` : '';
+  const tel = p.tel ? html`<a href="${p.tel}">${p.phone}</a>` : '';
+  const mail = p.mailto ? html`<a href="${p.mailto}">${p.email}</a>` : '';
+
+  // The phone number is the headline: the one thing a patient needs last.
+  if (kind === 'phone' && p.tel) {
+    return html`<div class="ft ft--phone">
+  <div class="ft__notes"><p><strong>${p.name}</strong><br>${addr}</p><p>${openStatus(ctx)}<br>${mail}</p>${book(ctx)}</div>
+  <a class="ft__huge" href="${p.tel}" aria-label="${L.call} ${p.phone}">${fit(p.phone)}</a>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // Whether the practice is open right now, set large, over its week.
+  if (kind === 'hours' && c.hours.any) {
+    return html`<div class="ft ft--hours">
+  <p class="ft__status">${openStatus(ctx)}</p>
+  <div class="ft__cols">
+    <div>${hoursTable(ctx)}</div>
+    <p><strong>${p.name}</strong><br>${addr}</p>
+    <p>${tel}<br>${mail}</p>
+    <div>${book(ctx)}</div>
+  </div>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // A parting line and the action, over the name cropped by the page's edge.
+  if (kind === 'invite') {
+    return html`<div class="ft ft--invite">
+  <div class="ft__top">
+    <p class="ft__line">${L.seeYou}</p>
+    <div class="ft__reach"><p>${addr}</p><p>${tel}<br>${mail}</p>${book(ctx)}</div>
+  </div>
+  ${footBase(ctx)}
+  <p class="ft__crop" aria-hidden="true">${fit(p.shortName)}</p>
+</div>`;
+  }
+  // The back of a postcard: a short message, the address block and a stamp.
+  if (kind === 'card') {
+    return html`<div class="ft ft--card">
+  <div class="ft__post">
+    <div class="ft__msg"><p class="ft__line">${L.seeYou}</p><p>${openStatus(ctx)}</p>${book(ctx)}</div>
+    <div class="ft__addr"><span class="ft__stamp">${pic(ctx, c.img.clinic)}</span><p><strong>${p.name}</strong></p><p>${addr}</p><p>${tel}</p><p>${mail}</p></div>
+  </div>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // A last photograph beside the menu set large.
+  if (kind === 'split') {
+    return html`<div class="ft ft--split">
+  <figure class="ft__pic">${pic(ctx, c.img.clinic)}</figure>
+  <div class="ft__side">
+    <nav class="ft__menu" aria-label="Footer">${navLinks(ctx).map((l) => html`<a href="${l.href}">${l.label}</a>`)}</nav>
+    <div class="ft__reach"><p><strong>${p.name}</strong><br>${addr}</p><p>${tel}<br>${mail}</p></div>
+    <div class="ft__base">${social(ctx)}${legal(ctx)}</div>
+  </div>
+</div>`;
+  }
+  // The name at full width over the facts.
+  return html`<div class="ft ft--name">
+  <p class="ft__crop" aria-hidden="true">${fit(p.shortName)}</p>
+  <div class="ft__cols"><p><strong>${p.name}</strong><br>${addr}</p><p>${tel}<br>${mail}</p><p>${openStatus(ctx)}</p><div>${book(ctx)}</div></div>
+  ${footBase(ctx)}
+</div>`;
 }

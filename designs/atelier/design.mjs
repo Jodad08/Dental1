@@ -1,6 +1,6 @@
 // Atelier: charcoal and stone, one light grotesk, generous space. Dark and
 // pale fields alternate; photographs are quiet and large.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicRows, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, servicePick, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Atelier',
@@ -96,11 +96,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    ${footFacts(ctx)}
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName.toUpperCase())}</p>
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'split')}</div>
 </footer>`;
   },
 };

@@ -1,6 +1,6 @@
 // Sunlit: one warm photograph filling the first screen and a heavy lowercase
 // headline in chartreuse, on a stone ground.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, menuButton, openStatus, secHead, doctorList, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Sunlit',
@@ -91,11 +91,7 @@ ${lead ? html`<section class="reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName.toLowerCase())}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'phone')}</div>
 </footer>`;
   },
 };

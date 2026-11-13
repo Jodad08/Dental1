@@ -1,6 +1,6 @@
 // Sage: a calm, airy practice site. Soft green fields, one grotesk, rounded
 // pictures, a tall portrait beside the headline.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, hoursTable, openStatus, stars, ratingLine, faq, topicBody, contactForm, social, mapEmbed, fit, legal } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, hoursTable, openStatus, stars, ratingLine, faq, topicBody, contactForm, social, mapEmbed, fit, legal } from '../../build/kit.mjs';
 
 export default {
   name: 'Sage',
@@ -122,16 +122,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    <div class="foot__row">
-      <p><strong>${p.name}</strong><br>${p.addressLines.map((l, i) => html`${i ? html`<br>` : ''}${l}`)}</p>
-      <p>${p.tel ? html`<a href="${p.tel}">${p.phone}</a><br>` : ''}${p.mailto ? html`<a href="${p.mailto}">${p.email}</a>` : ''}</p>
-      ${navList(ctx, 'foot__nav')}
-      ${social(ctx)}
-    </div>
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'card')}</div>
 </footer>`;
   },
 };

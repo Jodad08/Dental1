@@ -1,6 +1,6 @@
 // Aligner: white, navy and pale blue. Wide capitals that switch between a
 // light and a heavy weight, and one large rounded portrait.
-import { patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Aligner',
@@ -93,11 +93,7 @@ ${lead ? html`<section class="reviews wrap" id="reviews">
 </main>
 
 <footer class="foot wrap">
-  <div class="navy">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName.toUpperCase())}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="navy">${footer(ctx, 'name')}</div>
 </footer>`;
   },
 };

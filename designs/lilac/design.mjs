@@ -1,6 +1,6 @@
 // Lilac: a white sheet on soft grey, navigation as a row of pills, a rounded
 // photograph for the first screen and services as a cluster of unlike tiles.
-import { patientInfo, contactSection, html, rich, pic, headline, navLinks, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, rich, pic, headline, navLinks, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicBody, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 export default {
   name: 'Lilac',
@@ -102,9 +102,7 @@ ${lead ? html`<section class="sec reviews" id="reviews">
 </main>
 
 <footer class="foot">
-  ${footFacts(ctx)}
-  <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-  ${legal(ctx)}
+  ${footer(ctx, 'hours')}
 </footer>
 </div>`;
   },

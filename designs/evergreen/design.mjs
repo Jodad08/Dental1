@@ -1,6 +1,6 @@
 // Evergreen: a serif headline with an italic second line, a deep green disc
 // holding a drawn row of braces, and treatments you can filter by kind.
-import { patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
+import { footer, patientInfo, contactSection, html, raw, rich, pic, headline, navList, book, callLink, menuButton, openStatus, secHead, doctorList, quote, quoteList, ratingBlock, topicTabs, faq, contactFacts, contactForm, mapEmbed, footFacts, fit, legal, ctaActs, ctaText } from '../../build/kit.mjs';
 
 // Seven teeth on an arc, each with its bracket, joined by one wire. Drawn flat in the palette.
 function braces() {
@@ -129,11 +129,7 @@ ${lead ? html`<section class="sec reviews wrap" id="reviews">
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p class="foot__name" aria-hidden="true">${fit(p.shortName)}</p>
-    ${footFacts(ctx)}
-    ${legal(ctx)}
-  </div>
+  <div class="wrap">${footer(ctx, 'split')}</div>
 </footer>`;
   },
 };

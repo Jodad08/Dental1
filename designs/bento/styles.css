@@ -94,3 +94,6 @@ body > .stack { padding-block: var(--margin); }
 .skip { color: #fff; }
 
 :root { --tab-on: var(--blue); --tab-on-ink: #fff; --field-bg: #fff; }
+
+.contact { display: block; }
+.foot { --ft-btn: #fff; --ft-btn-ink: var(--blue); }
