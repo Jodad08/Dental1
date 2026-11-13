@@ -47,7 +47,7 @@ const copyDir = (from, to, skip = () => false) => {
     if (entry.name.startsWith('.') || skip(entry.name)) continue;
     const a = path.join(from, entry.name);
     const b = path.join(to, entry.name);
-    if (entry.isDirectory()) copyDir(a, b);
+    if (entry.isDirectory()) copyDir(a, b, skip);
     else {
       fs.mkdirSync(to, { recursive: true });
       fs.copyFileSync(a, b);
@@ -129,12 +129,15 @@ write(
   path.join(outDir, '404.html'),
   `<!doctype html><html lang="${first.lang}"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Page not found · ${plain(first.practice.name)}</title><style>body{margin:0;min-height:100svh;display:grid;place-content:center;gap:1rem;padding:1.5rem;font:1.125rem/1.5 system-ui,sans-serif;background:#f4f4f1;color:#111}h1{margin:0;font-size:clamp(2.5rem,8vw,5rem);line-height:1;letter-spacing:-.03em;font-weight:500}a{color:inherit}</style><h1>Page not found</h1><p>That page does not exist. <a href="/">Back to ${plain(first.practice.name)}</a></p></html>\n`,
 );
-write(path.join(outDir, 'robots.txt'), indexable ? `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}` : 'User-agent: *\nDisallow: /\n');
+write(path.join(outDir, 'robots.txt'), indexable ? `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}` : '# Not for search results. Crawlers may fetch pages so they can read the noindex header on every response.\nUser-agent: *\nAllow: /\n');
 if (indexable && siteUrl) write(path.join(outDir, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${siteUrl}/</loc></url></urlset>\n`);
 write(
   path.join(outDir, '_headers'),
   `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n${indexable ? '' : '  X-Robots-Tag: noindex\n'}\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
 );
+
+// What each design sets aside from the house rules, for tools/check.mjs.
+write(path.join(root, '.check/allow.json'), JSON.stringify(Object.fromEntries(chosen.map((d) => [hubMode ? d.slug : 'site', d.allow || []]))));
 
 if (demo) warn('content/site.jsonc still has "demo": true. The practice, reviews, figures and photographs are samples; replace them before a client or the public sees this.');
 if (!indexable && !hubMode) warn('Search engines are told not to index this build. Set seo.indexable to true (and seo.url) when the site goes live.');

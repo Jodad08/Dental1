@@ -152,5 +152,8 @@
     addEventListener('resize', fitAll);
   }
 
+  // Inside the chooser's frames the preview bar is noise.
+  if (self !== top) document.querySelector('.pv')?.remove();
+
   $$('[data-year]').forEach((el) => (el.textContent = String(new Date().getFullYear())));
 })();

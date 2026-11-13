@@ -228,3 +228,213 @@ ${previewBar(ctx)}
 </html>
 `;
 }
+
+// ---------------------------------------------------------------- blocks
+// Plain, unstyled pieces several designs share. Each design arranges and
+// styles them its own way; none of them carries a look.
+
+const brk = (arr) => arr.map((l, i) => html`${i ? html`<br>` : ''}${l}`);
+
+/** h2 + supporting sentence for a section (c.services, c.doctors, …). */
+export const secHead = (s, cls = 'head') =>
+  html`<div class="${cls}" data-stagger><h2 data-reveal>${rich(s.title)}</h2></div>`;
+
+export const doctorList = (ctx, cls = 'docs') =>
+  html`<ul class="${cls}" data-stagger>${ctx.c.doctors.items.map(
+    (d) => html`<li data-reveal><div class="docs__pic frame">${pic(ctx, d.photo, { name: d.name, alt: d.name })}</div><div class="docs__txt"><h3>${d.name}</h3><p class="docs__role">${d.role}</p><p class="docs__bio">${d.bio}</p></div></li>`,
+  )}</ul>`;
+
+export const quote = (ctx, r, cls = 'quote', face = true) =>
+  html`<figure class="${cls}"><blockquote><p>“${r.quote}”</p></blockquote><figcaption>${face ? pic(ctx, r.photo, { cls: 'quote__face', name: r.name }) : ''}<span><strong>${r.name}</strong><br>${r.detail}</span></figcaption></figure>`;
+
+export const quoteList = (ctx, items, cls = 'quotes') =>
+  html`<ul class="${cls}" data-stagger>${items.map((r) => html`<li data-reveal><blockquote><p>“${r.quote}”</p></blockquote><p class="quotes__by"><strong>${r.name}</strong>, ${r.detail}</p></li>`)}</ul>`;
+
+export function ratingBlock(ctx, cls = 'rating') {
+  const r = ctx.c.reviews;
+  if (!r.rating) return '';
+  return html`<p class="${cls}">${stars(ctx)} ${ratingLine(ctx)}${r.url ? html` <a class="link" href="${r.url}" target="_blank" rel="noopener">${ctx.L.allReviews}</a>` : ''}</p>`;
+}
+
+/** Patient-info topics: pick a topic, read it. Works as plain stacked text without script. */
+export function topicTabs(ctx, cls = 'topics') {
+  const t = ctx.c.patientInfo.topics;
+  if (!t.length) return '';
+  return html`<div class="${cls}" data-pick>
+  <div class="topics__tabs" role="tablist" aria-label="${ctx.c.patientInfo.title}">${t.map((x, i) => html`<button type="button" role="tab" aria-selected="${i === 0}" data-pick-item="${i}" class="${i === 0 ? 'is-on' : ''}">${x.title}</button>`)}</div>
+  ${t.map((x, i) => html`<div class="topics__pane${i === 0 ? ' is-on' : ''}" role="tabpanel" data-pick-show="${i}" data-pick-hide><h3>${x.title}</h3>${topicBody(x)}</div>`)}
+</div>`;
+}
+
+/** Every topic open, as rows (for designs that list instead of tab). */
+export const topicRows = (ctx, cls = 'trows') =>
+  html`<dl class="${cls}" data-stagger>${ctx.c.patientInfo.topics.map((x) => html`<div data-reveal><dt>${x.title}</dt><dd>${topicBody(x)}</dd></div>`)}</dl>`;
+
+export function contactFacts(ctx, cls = 'facts') {
+  const p = ctx.c.practice;
+  return html`<div class="${cls}">
+  <address>
+    ${p.tel ? html`<a class="facts__tel" href="${p.tel}">${p.phone}</a>` : ''}
+    ${p.mailto ? html`<a class="link" href="${p.mailto}">${p.email}</a>` : ''}
+    ${p.addressLine ? html`<a class="link" href="${p.mapUrl}" target="_blank" rel="noopener">${brk(p.addressLines)}</a>` : ''}
+    ${p.wa ? html`<a class="link" href="${p.wa}" target="_blank" rel="noopener">${ctx.L.whatsapp}</a>` : ''}
+  </address>
+  ${ctx.c.hours.any ? html`<div class="facts__hours"><p><strong>${openStatus(ctx)}</strong></p>${hoursTable(ctx)}</div>` : ''}
+</div>`;
+}
+
+/** Address, phone, links, social and the legal line for a footer. */
+export function footFacts(ctx, cls = 'ffacts') {
+  const p = ctx.c.practice;
+  return html`<div class="${cls}">
+  <p><strong>${p.name}</strong>${p.addressLines.length ? html`<br>${brk(p.addressLines)}` : ''}</p>
+  <p>${p.tel ? html`<a href="${p.tel}">${p.phone}</a><br>` : ''}${p.mailto ? html`<a href="${p.mailto}">${p.email}</a>` : ''}</p>
+  ${navList(ctx, 'ffacts__nav')}
+  ${social(ctx)}
+</div>`;
+}
+
+/** The urgent-care line with a call button, or the booking prompt when there is none. */
+export function ctaActs(ctx) {
+  const p = ctx.c.practice;
+  return html`<div class="acts">${p.tel ? html`<a class="btn" href="${p.tel}">${ctx.L.call} ${p.phone}</a>${book(ctx, 'link')}` : book(ctx)}</div>`;
+}
+export const ctaText = (ctx) => ctx.c.practice.emergency || ctx.c.cta.text || ctx.c.hero.text;
+
+/**
+ * Services as a list whose rows show their own picture and description:
+ * point at, tab to or tap a row. Without script every description shows.
+ */
+export function servicePick(ctx, cls = 'svc') {
+  const items = ctx.c.services.items;
+  return html`<div class="${cls}" data-pick="hover">
+  <ul class="svc__list">${items.map(
+    (s, i) => html`<li><button type="button" class="svc__row${i === 0 ? ' is-on' : ''}" data-pick-item="${i}" aria-pressed="${i === 0}"><span class="svc__name">${s.name}</span>${s.price ? html`<span class="svc__price">${s.price}</span>` : ''}<span class="svc__text">${s.text}</span></button></li>`,
+  )}</ul>
+  <div class="svc__pics frame">${items.map((s, i) => html`<div class="svc__pic${i === 0 ? ' is-on' : ''}" data-pick-show="${i}">${pic(ctx, s.image || ctx.c.img.care, { alt: s.name })}</div>`)}</div>
+</div>`;
+}
+
+/** Services as plain items: picture, name, text, price. */
+export const serviceList = (ctx, cls = 'sv', { pics = true, items = ctx.c.services.items } = {}) =>
+  html`<ul class="${cls}" data-stagger>${items.map(
+    (s) => html`<li data-reveal${s.category ? raw(` data-cat="${esc(s.category)}"`) : ''}>${pics ? html`<div class="sv__pic frame">${pic(ctx, s.image, { alt: s.name })}</div>` : ''}<h3>${s.name}</h3><p>${s.text}</p>${s.price ? html`<p class="sv__price">${s.price}</p>` : ''}</li>`,
+  )}</ul>`;
+
+export const statList = (ctx, cls = 'figs') =>
+  ctx.c.stats.length ? html`<dl class="${cls}" data-stagger>${ctx.c.stats.map((s) => html`<div data-reveal><dt>${s.value}</dt><dd>${s.label}</dd></div>`)}</dl>` : '';
+
+// ---------------------------------------------------------------- shared sections
+// Patient info and Get in touch are laid out the same way in every design, so
+// they read as one tidy unit; each design only supplies colours and corners.
+
+/** Patient info: one row of tabs (each topic, then the common questions) and one pane. */
+export function patientInfo(ctx) {
+  const { c, L } = ctx;
+  const tabs = [
+    ...c.patientInfo.topics.map((t) => ({ label: t.title, body: topicBody(t) })),
+    ...(c.patientInfo.faq.length ? [{ label: L.questions, body: faq(ctx) }] : []),
+  ];
+  return html`<div class="pi" data-pick>
+  <div class="pi__head" data-stagger>
+    <h2 data-reveal>${rich(c.patientInfo.title)}</h2>
+    <div class="pi__tabs" role="tablist" aria-label="${plain(c.patientInfo.title)}" data-reveal>${tabs.map((t, i) => html`<button type="button" role="tab" aria-selected="${i === 0}" data-pick-item="${i}" class="${i === 0 ? 'is-on' : ''}">${t.label}</button>`)}</div>
+  </div>
+  <div class="pi__panel" data-reveal>${tabs.map((t, i) => html`<div class="pi__pane${i === 0 ? ' is-on' : ''}" role="tabpanel" data-pick-show="${i}"><h3>${t.label}</h3>${t.body}</div>`)}</div>
+</div>`;
+}
+
+/** Get in touch: three matching cards (call, visit, hours) beside the form. */
+export function contactSection(ctx) {
+  const { c, L } = ctx;
+  const p = c.practice;
+  const card = (name, title, body) => html`<li class="ct__card" data-reveal><span class="ct__ico">${icon(name)}</span><div><h3>${title}</h3>${body}</div></li>`;
+  return html`<div class="ct">
+  <h2 data-reveal>${rich(c.contact.title)}</h2>
+  <div class="ct__left" data-stagger>
+    <ul class="ct__cards">
+      ${p.tel || p.mailto ? card('phone', L.callUs, html`${p.tel ? html`<p><a class="ct__big" href="${p.tel}">${p.phone}</a></p>` : ''}${p.mailto ? html`<p><a class="link" href="${p.mailto}">${p.email}</a></p>` : ''}`) : ''}
+      ${p.addressLine ? card('pin', L.visitUs, html`<p>${p.addressLines.map((l, i) => html`${i ? html`<br>` : ''}${l}`)}</p><p><a class="link" href="${p.mapUrl}" target="_blank" rel="noopener">${L.directions}</a></p>`) : ''}
+      ${c.hours.any ? card('clock', L.hours, html`<p><strong>${openStatus(ctx)}</strong></p>${hoursTable(ctx)}`) : ''}
+    </ul>
+  </div>
+  <div class="ct__form" data-reveal>${contactForm(ctx)}</div>
+</div>
+${mapEmbed(ctx)}`;
+}
+
+// ---------------------------------------------------------------- footers
+// Six ways to end a page, each a designed close rather than link columns.
+// A design picks one; its own stylesheet supplies the colours.
+function footBase(ctx) {
+  return html`<div class="ft__base">${navList(ctx, 'ft__nav')}${social(ctx)}${legal(ctx)}</div>`;
+}
+const brLines = (arr) => arr.map((l, i) => html`${i ? html`<br>` : ''}${l}`);
+
+export function footer(ctx, kind = 'name') {
+  const { c, L } = ctx;
+  const p = c.practice;
+  const addr = p.addressLine ? html`<a href="${p.mapUrl}" target="_blank" rel="noopener">${brLines(p.addressLines)}</a>` : '';
+  const tel = p.tel ? html`<a href="${p.tel}">${p.phone}</a>` : '';
+  const mail = p.mailto ? html`<a href="${p.mailto}">${p.email}</a>` : '';
+
+  // The phone number is the headline: the one thing a patient needs last.
+  if (kind === 'phone' && p.tel) {
+    return html`<div class="ft ft--phone">
+  <div class="ft__notes"><p><strong>${p.name}</strong><br>${addr}</p><p>${openStatus(ctx)}<br>${mail}</p>${book(ctx)}</div>
+  <a class="ft__huge" href="${p.tel}" aria-label="${L.call} ${p.phone}">${fit(p.phone)}</a>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // Whether the practice is open right now, set large, over its week.
+  if (kind === 'hours' && c.hours.any) {
+    return html`<div class="ft ft--hours">
+  <p class="ft__status">${openStatus(ctx)}</p>
+  <div class="ft__cols">
+    <div>${hoursTable(ctx)}</div>
+    <p><strong>${p.name}</strong><br>${addr}</p>
+    <p>${tel}<br>${mail}</p>
+    <div>${book(ctx)}</div>
+  </div>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // A parting line and the action, over the name cropped by the page's edge.
+  if (kind === 'invite') {
+    return html`<div class="ft ft--invite">
+  <div class="ft__top">
+    <p class="ft__line">${L.seeYou}</p>
+    <div class="ft__reach"><p>${addr}</p><p>${tel}<br>${mail}</p>${book(ctx)}</div>
+  </div>
+  ${footBase(ctx)}
+  <p class="ft__crop" aria-hidden="true">${fit(p.shortName)}</p>
+</div>`;
+  }
+  // The back of a postcard: a short message, the address block and a stamp.
+  if (kind === 'card') {
+    return html`<div class="ft ft--card">
+  <div class="ft__post">
+    <div class="ft__msg"><p class="ft__line">${L.seeYou}</p><p>${openStatus(ctx)}</p>${book(ctx)}</div>
+    <div class="ft__addr"><span class="ft__stamp">${pic(ctx, c.img.clinic)}</span><p><strong>${p.name}</strong></p><p>${addr}</p><p>${tel}</p><p>${mail}</p></div>
+  </div>
+  ${footBase(ctx)}
+</div>`;
+  }
+  // A last photograph beside the menu set large.
+  if (kind === 'split') {
+    return html`<div class="ft ft--split">
+  <figure class="ft__pic">${pic(ctx, c.img.clinic)}</figure>
+  <div class="ft__side">
+    <nav class="ft__menu" aria-label="Footer">${navLinks(ctx).map((l) => html`<a href="${l.href}">${l.label}</a>`)}</nav>
+    <div class="ft__reach"><p><strong>${p.name}</strong><br>${addr}</p><p>${tel}<br>${mail}</p></div>
+    <div class="ft__base">${social(ctx)}${legal(ctx)}</div>
+  </div>
+</div>`;
+  }
+  // The name at full width over the facts.
+  return html`<div class="ft ft--name">
+  <p class="ft__crop" aria-hidden="true">${fit(p.shortName)}</p>
+  <div class="ft__cols"><p><strong>${p.name}</strong><br>${addr}</p><p>${tel}<br>${mail}</p><p>${openStatus(ctx)}</p><div>${book(ctx)}</div></div>
+  ${footBase(ctx)}
+</div>`;
+}

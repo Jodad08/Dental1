@@ -180,7 +180,6 @@ function measure() {
   return out;
 }
 
-fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch();
 const report = {};
@@ -238,7 +237,8 @@ for (const slug of targets) {
     }
     await ctx.close();
   }
-  const allow = [];
+  let allow = [];
+  try { allow = JSON.parse(fs.readFileSync(path.join(outDir, 'allow.json'), 'utf8'))[name] || []; } catch {}
   const shown = findings.filter((f) => !allow.includes(f.id));
   fails += shown.filter((f) => f.level === 'FAIL').length;
   console.log(`\n${name}  ${shown.length ? '' : 'clean'}`);

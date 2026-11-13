@@ -19,7 +19,8 @@ const build = () => spawnSync(process.execPath, [path.join(root, 'build/build.mj
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.gif': 'image/gif', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.webm': 'video/webm', '.pdf': 'application/pdf', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml' };
 const clients = new Set();
-const RELOAD = '<script>new EventSource("/__reload").onmessage=()=>location.reload()</script>';
+// Only the top page listens: previews inside the chooser's frames would use up the browser's connections.
+const RELOAD = '<script>if(self===top)new EventSource("/__reload").onmessage=()=>location.reload()</script>';
 
 build();
 http
